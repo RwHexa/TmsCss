@@ -1,0 +1,89 @@
+
+/* style.css */
+
+html, body {
+  margin: 0; padding: 0; width: 100%; height: 100%; font-family: sans-serif;
+}
+
+.hidden {
+  display: none !important; /* Macht jedes Element komplett unsichtbar und entfernt es aus dem Layout */
+}
+
+.start-seite {
+  width: 100%;
+  height: 100%;
+  display: flex; /* Nutzt Flexbox... */
+  flex-direction: column; /* ... um Elemente untereinander anzuordnen ... */
+  justify-content: center; /* ... sie vertikal zu zentrieren ... */
+  align-items: center; /* ... und sie horizontal zu zentrieren. */
+  text-align: center;
+  padding: 20px;
+ /* NEU: Visuelles Feedback */
+  background-color: #00f8ff; /* Ein helles AliceBlue */
+  border: 3px solid #000000; /* Ein gestrichelter grauer Rand */
+  box-sizing: border-box; /* Wichtig, damit der Rand die Größe nicht beeinflusst */
+}
+
+/*
+  Der Wrapper: Ein einfacher Scroll-Container
+*/
+.wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+/*
+  Der Sizer:
+  - WIRD JETZT MIT !important IN DAS RICHTIGE LAYOUT GEZWUNGEN
+*/
+.sizer {
+  /* Größe des Sizers */
+  width: 620px !important;
+  height: 740px !important;
+
+  /* Layout-Korrekturen (überschreiben die Inline-Styles des Designers) */
+  position: relative !important; /* Zwingt den Sizer, ein normaler Block zu sein */
+  margin: auto !important;       /* Erzwingt die Zentrierung */
+  top: unset !important;          /* Setzt das 'top' vom Designer zurück */
+  left: unset !important;         /* Setzt das 'left' vom Designer zurück */
+}
+
+
+/* Die .card Klasse bleibt exakt wie sie war! */
+.card {
+  width: 550px !important;
+  height: 670px !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background-color: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75) !important;
+  padding: 20px !important;
+  overflow: visible !important;
+  border: 4px solid #ee4565 !important;
+}
+
+/*
+ =========================================================================
+ NEU: Die universelle "Layout-Reset"-Klasse.
+ Ihre Aufgabe: Die vom Delphi-Designer gesetzten Inline-Styles neutralisieren.
+ =========================================================================
+*/
+.layout-reset {
+  position: relative !important; /* Setzt die Position auf einen vorhersagbaren Wert */
+  top: unset !important;      /* Entfernt den 'top'-Wert des Designers */
+  left: unset !important;     /* Entfernt den 'left'-Wert des Designers */
+  width: auto !important;     /* Lässt die Breite von den spezifischen Klassen steuern */
+  height: 780px !important;    /* Lässt die Höhe von den spezifischen Klassen steuern */
+}
+
+
+
+
+
+
+
+
