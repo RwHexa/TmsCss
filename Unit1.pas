@@ -41,21 +41,19 @@ implementation
 
 procedure TForm1.btnZurAnwendClick(Sender: TObject);
 begin
-  // zur Card
-  // Startseite verstecken (MIT ElementHandle)
+ // Verstecke die Startseite
   divStartseite.ElementHandle.classList.add('hidden');
 
-  // Anwenderseite (Wrapper) anzeigen (MIT ElementHandle)
+  // Zeige die Anwenderseite
   divAnwenderWrapper.ElementHandle.classList.remove('hidden');
 end;
 
 procedure TForm1.btnZurStartseiteClick(Sender: TObject);
 begin
-  // zur Startseite
-  // Anwenderseite (Wrapper) verstecken (MIT ElementHandle)
+    // Verstecke die Anwenderseite
   divAnwenderWrapper.ElementHandle.classList.add('hidden');
 
-  // Startseite anzeigen (MIT ElementHandle)
+  // Zeige die Startseite
   divStartseite.ElementHandle.classList.remove('hidden');
 end;
 
@@ -63,32 +61,27 @@ procedure TForm1.WebFormCreate(Sender: TObject);
 begin
   inherited;
 
-   // ===== 1. Zuweisung der CSS-Klassen für die Seiten-Struktur =====
+   // ===== FINALE, KORREKTE ZUWEISUNG =====
 
-  // Weist dem Container für die Startseite seine CSS-Klasse zu
-  //divStartseite.ElementClassName := 'start-seite';
+  divStartseite.ElementClassName      := 'fullscreen-container start-seite';
+  divAnwenderWrapper.ElementClassName := 'fullscreen-container wrapper';
 
-  // Weist den drei Containern der Anwenderseite ihre jeweiligen Rollen zu
-  //divAnwenderWrapper.ElementClassName := 'wrapper';
-  //divAnwenderSizer.ElementClassName := 'sizer';
-  //divAnwenderCard.ElementClassName := 'card';
+  // =========================================================================
+  // HIER IST DER ENTSCHEIDENDE FIX:
+  // AUCH DER SIZER MUSS DIE STÖRENDEN DESIGNER-STYLES LOSWERDEN!
+  // Ohne 'fullscreen-container' wird 'position: absolute' vom Designer gesetzt.
+  // =========================================================================
+  divAnwenderSizer.ElementClassName   := 'fullscreen-container sizer';
 
-  divStartseite.ElementClassName      := 'layout-reset start-seite';
-  divAnwenderWrapper.ElementClassName := 'layout-reset wrapper';
-  divAnwenderSizer.ElementClassName   := 'layout-reset sizer';
-  divAnwenderCard.ElementClassName    := 'card'; // Die Card ist schon !important genug
+  // Die Card ist das einzige Element, das wirklich 'position: absolute' haben soll,
+  // daher bekommt sie den Reset nicht.
+  divAnwenderCard.ElementClassName    := 'card';
 
 
-  // ===== 2. Festlegen des Startzustands für die Navigation =====
-
-  // Die Startseite soll zu Beginn sichtbar sein.
-  // (Technisch gesehen entfernen wir die 'hidden'-Klasse, falls sie vorhanden wäre.
-  //  Dies stellt sicher, dass sie auf jeden Fall sichtbar ist.)
+  // ===== Navigation bleibt unverändert =====
   divStartseite.ElementHandle.classList.remove('hidden');
-
-  // Die komplette Anwenderseite (repräsentiert durch ihren äußersten Container)
-  // soll zu Beginn unsichtbar sein.
   divAnwenderWrapper.ElementHandle.classList.add('hidden');
+
 end;
 
 
